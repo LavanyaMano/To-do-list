@@ -20,7 +20,6 @@
             <ul>
                 <li><h4>To-do-list</h4></li>
                 <li class="btn btn-primary" ng-click="addList()">Add Item</li>
-                <li class="btn btn-primary" ng-click="mode(1)">Edit Item</li>
             </ul>
         </div>
         <div class="main">
@@ -73,6 +72,7 @@
                     data-parent = "#accordion"
                     >
                         {{item.task}}
+                        <button class="btn btn-primary" ng-click="mode(1)">Edit Item</button>
                         <button class="btn btn-primary" ng-click="saveList(2)">Delete</button>
                     </a>
                         <div id="collapse-{{item.task}}" class="panel-collapse collapse">
