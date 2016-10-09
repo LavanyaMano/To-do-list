@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        To-doList Angular
+    </title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/a04d9e4c1c.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<!-- content section -->
+<body ng-cloak  ng-controller="MainCtrl">
+    <div class="container">
+        <div class="nav navbar-default">
+            <ul>
+                <li><h4>To-do-list</h4></li>
+                <li class="btn btn-primary" ng-click="addList()">Add Item</li>
+                <li class="btn btn-primary" ng-click="mode(1)">Edit Item</li>
+            </ul>
+        </div>
+        <div class="main">
+            <div id="menu">
+                    Search : <input type="text" placeholder="Search task" ng-model="searchList"/>
+                    Display rows:<input type="number" min="0" max ="10" ng-model="rowLimit"/> nos.
+                    Order By : <select ng-model="sortList">
+                                    <option value="task">
+                                        By Task (ascending)
+                                    </option>
+                                    <option value="-task">
+                                        By Task (decending)
+                                    </option>
+                                    <option value="time">
+                                        By Date added (ascending)
+                                    </option>
+                                    <option value="-time">
+                                    By Date added (decending)   
+                                    </option>
+                                    <option value="value">
+                                        By Target date(ascending)
+                                    </option>
+                                    <option value="-value">
+                                        By Target date(decending)
+                                    </option>
+                                    <option value="-status">
+                                        By Completed
+                                    </option>
+                                    <option value="status">
+                                        By Pending
+                                    </option>
+                                </select>
+            </div>
+            <div id="listview">
+                <div class= "editor" ng-show="addMode || editMode">
+                    <input type="text" ng-model="selectedItem.task" placeholder="task">
+                    <input type="text" ng-model="selectedItem.detail" placeholder="detail">
+                    <label>Due on</label>
+                    <input type="date" ng-model="selectedItem.value"
+                            placeholder="yyyy-MM-dd" min="2015-01-01" max="2023-12-31" required />
+                    <button class="btn btn-primary" ng-click="saveList(0)" ng-show="addMode">Add</button>
+                    <button class="btn btn-primary" ng-click="saveList(1)" ng-show="editMode">edit</button>
+                </div>
+            
+                <div class="panel list-group" id= "accordion" ng-repeat="item in userList| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
+
+                    <input type="checkbox" ng-model="item.status">
+                    <a class="collapsed list-group-item" href="#collapse-{{item.task}}"
+                    data-toggle = "collapse"
+                    data-parent = "#accordion"
+                    >
+                        {{item.task}}
+                        <button class="btn btn-primary" ng-click="saveList(2)">Delete</button>
+                    </a>
+                        <div id="collapse-{{item.task}}" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <a href="#">{{ item.task}}</a>
+                                <br>
+                                <a href="#">{{ item.detail}}</a>
+                                <br>
+                                <a href="#" type="date" ng-model="item.time">{{ item.time|date }}</a>
+                                <br>
+                                <a href="#" type="date" ng-model="item.value">{{ item.value|date}}</a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- footer section -->
+
+
+    <script   src="https://code.jquery.com/jquery-3.1.0.min.js"  integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-xeditable/0.4.0/js/xeditable.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.22.1/ramda.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

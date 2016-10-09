@@ -1,0 +1,34 @@
+body{
+    padding: 70px;
+    background-color: black;
+}
+
+.container {
+  display: flex;
+}
+.nav{
+    max-width: 30%;
+    min-width: 100px;
+    background-color: grey;
+    flex: 1;
+    border-radius: 6px;
+}
+.main{
+    min-width: 60%;
+    padding-left: 50px;
+    background-color: lightgrey;
+    overflow: scroll;
+    height: 550PX;
+    border-radius: 6px;
+}
+
+#menu{
+    padding-top: 50px;
+    padding-bottom: 20px;
+    padding-right: 100px;
+    padding-left: 100px;
+}
+#listview{
+    padding-right: 100px;
+    padding-left: 100px;
+}
