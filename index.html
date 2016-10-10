@@ -16,16 +16,17 @@
 <!-- content section -->
 <body ng-cloak  ng-controller="MainCtrl">
     <div class="container">
-        <div class="nav ">
+        <div class="nav">
             <ul>
                 <li><h4>To-do-list App</h4></li>
-                <li class="btn btn-primary" ng-click="addList()">Add Item</li> 
+                <li class="btn btn-default" ng-click="addList()">Add Item</li> 
                 <br>
                 <br>
-                <li class="btn btn-primary" ng-click="addLabel()">Add Label</li>
+                <li class="btn btn-default" ng-click="addLabel()">Add Label</li>
                 <br><br>
+                <form ng-submit="saveLabel()">
                 <input type="text" ng-show="add" ng-model="selectedLabel.label" placeholder="create label">
-                <button ng-show="add" ng-click="saveLabel()">Add</button>
+                </form>
                 <br>
                 <div id="labellist">
                     <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
@@ -74,8 +75,8 @@
                     <label>Due on</label>
                     <input type="date" ng-model="selectedItem.value"
                             placeholder="yyyy-MM-dd" min="2015-01-01" max="2023-12-31" required />
-                    <button class="btn btn-primary" ng-click="saveList(0)" ng-show="addMode">Add</button>
-                    <button class="btn btn-primary" ng-click="saveList(1)" ng-show="editMode">edit</button>
+                    <button class="btn btn-default" ng-click="saveList(0)" ng-show="addMode">Add</button>
+                    <button class="btn btn-default" ng-click="saveList(1)" ng-show="editMode">edit</button>
                 </div>
                 <h4>Your list in {{selectedLabel.label}}</h4>
                 <div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
@@ -88,8 +89,12 @@
                         data-parent = "#accordion"
                         >
                             {{item.task}}
-                            <button class="btn btn-primary" ng-click="mode(1)">Edit Item</button>
-                            <button class="btn btn-primary" ng-click="saveList(2)">Delete</button>
+                            <button class="btn btn-default" ng-click="mode(1)">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-default" ng-click="saveList(2)">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                            </button>
                         </a>
                     </div>
                     

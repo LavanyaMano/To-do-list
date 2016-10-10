@@ -1,7 +1,7 @@
 body{
     padding: 70px;
     background-color: rgba(4, 9, 10, 0.77);
-    font-style: oblique;
+    font-family: "Times New Roman", Georgia, Serif;
 }
 
 .container {
@@ -15,6 +15,7 @@ body{
     border-radius: 6px;
     overflow: scroll;
     height: 550PX;
+    box-shadow: 10px 10px 29px 3px rgba(163,160,163,1);
 }
 .main{
     margin-left: 10px;
@@ -24,8 +25,12 @@ body{
     overflow: scroll;
     height: 550PX;
     border-radius: 6px;
+    box-shadow: 10px 10px 43px 2px rgba(143,137,143,1);
+}   
+.btn-primary{
+    padding: 5px;
+    /*background: rgba(226,226,226,1);*/
 }
-
 #menu{
     padding-top: 50px;
     padding-bottom: 20px;
@@ -42,6 +47,7 @@ body{
     padding-top: 10px;
     border-radius: 6px;
     font-style: italic;
+    font-family: cursive;
 }
 input{
     border-radius: 6px;
