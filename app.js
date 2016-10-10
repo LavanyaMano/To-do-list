@@ -5,25 +5,25 @@ angular.module('app', [])
 
 function MainController($scope) {
     $scope.mainList = [{
-        label: "To Do List",list:[{task:"second",
+        label: "To Do List",list:[{task:"Second",
                     detail:"second detail",
-                    time:"",
+                    time:Date.now(),
                     value:"",
                     status:false,
                 }
         ]},
         {label:"Grocery",list:[{
-                    task:"first",
+                    task:"First",
                     detail:"first detail",
-                    time:"",
+                    time:Date.now(),
                     value:"",
                     status:true,
                             },
         ]},
         {label:"HomeWork",list:[{
-                    task:"homewwork",
+                    task:"Homewwork",
                     detail:"homewwork detail",
-                    time:"",
+                    time:Date.now(),
                     value:"",
                     status:true,
                             },]
@@ -87,8 +87,6 @@ function MainController($scope) {
     $scope.setSelectLabel = function(element){
         $scope.selectedLabel=element;
         $scope.indexLabel = $scope.mainList.indexOf($scope.selectedLabel);
-        console.log($scope.indexLabel);
-        console.log($scope.mainList[$scope.indexLabel])
     };
     $scope.newLabel = {};
     $scope.addLabel = function(label){
@@ -109,7 +107,6 @@ function MainController($scope) {
     $scope.diffDays=function(item){
         var classname = ((item.value - item.time) / (1000 * 60 * 60 * 24)) < 1 ? "list-group-item-danger" :
           ((item.value - item.time) / (1000 * 60 * 60 * 24)) <= 2 ? "list-group-item-warning":"";
-        console.log(classname);
         return classname;
     }
     

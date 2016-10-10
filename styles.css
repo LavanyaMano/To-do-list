@@ -40,6 +40,9 @@ header{
     background-color: ivory;
     text-align: center;
 }
+.pull-next{
+    margin-left:75%;
+}
 #menu{
     padding-top: 30px;
     padding-bottom: 20px;

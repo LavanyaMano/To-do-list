@@ -35,12 +35,9 @@
                 <br>
                 <div id="labellist">
                     <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
-                       <em> {{element.label}} </em>
-
-                                <i class="fa fa-times pull-right" ng-click="deleteLabel()" aria-hidden="true"></i>
-                      
+                        <em> {{element.label}} </em>
+                        <i class="fa fa-times pull-right" ng-click="deleteLabel()" aria-hidden="true"></i>
                         <span class="pull-right">{{element.list.length}}</span>
-
                     </a>
                 </div>
             </ul>
@@ -48,7 +45,7 @@
         <div class="main">
             <div id="menu">
                     Search : <input type="text" placeholder="Search task" ng-model="searchList"/>
-                    Display rows:<input type="number" min="0" max ="10" ng-model="rowLimit"/> nos.
+                    Display rows:<input type="number" min="0" max ="{{selectedLabel.list.length}}" ng-model="rowLimit"/> 
                     Order By : <select ng-model="sortList">
                                     <option value="task">
                                         By Task (ascending)
@@ -86,7 +83,7 @@
                     <button class="btn btn-default" ng-click="saveList(0)" ng-show="addMode">Add</button>
                     <button class="btn btn-default" ng-click="saveList(1)" ng-show="editMode">edit</button>
                 </div>
-                <h4>Your list in {{selectedLabel.label}}</h4>
+                <h4>Your list in Label: {{selectedLabel.label}}</h4>
                 <div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
                     
                     <input type="checkbox" ng-model="item.status">
@@ -97,7 +94,7 @@
                         data-parent = "#accordion"
                         >
                             {{item.task}} 
-                            <button class="btn btn-default" ng-click="mode(1)">
+                            <button class="btn btn-default pull-next" ng-click="mode(1)">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
                             <button class="btn btn-default pull-right" ng-click="saveList(2)">
