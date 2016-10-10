@@ -1,0 +1,27 @@
+<p>
+    This is trial
+</p>
+
+
+<div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
+    <table>
+        <thead>
+            <tr>
+                <td>TASK</td>
+                <td>DETAIL</td>
+                <td>CREATED ON</td>
+                <td>DUE ON</td>
+                <td>STATUS</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{item.task}}</td>
+                <td>{{item.detail}}</td>
+                <td>{{item.time}}</td>
+                <td>{{item.value}}</td>
+                <td>{{item.status}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
