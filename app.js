@@ -4,7 +4,31 @@ angular.module('app', [])
     .controller('MainCtrl', MainController);
 
 function MainController($scope) {
-   $scope.userList =[{
+    $scope.mainList = [{
+        label: "To Do List",list:[{task:"second",
+                    detail:"second detail",
+                    time:"",
+                    value:"",
+                    status:false,}
+        ]},
+        {label:"Grocery",list:[{
+                    task:"first",
+                    detail:"first detail",
+                    time:"",
+                    value:"",
+                    status:true,
+                            },
+        ]},
+        {label:"HomeWork",list:[{
+                    task:"homewwork",
+                    detail:"homewwork detail",
+                    time:"",
+                    value:"",
+                    status:true,
+                            },]
+        }];
+
+    $scope.userList =[{
         task:"first",
         detail:"first detail",
         time:"",
@@ -24,7 +48,7 @@ function MainController($scope) {
     $scope.sortList = "task"; 
     $scope.setSelectItem = function(item){
         $scope.selectedItem=item;
-        $scope.index = $scope.userList.indexOf($scope.selectedItem);
+        $scope.index = $scope.selectedLabel.list.indexOf($scope.selectedItem);
     };
     $scope.editMode=false;
     $scope.mode = function(action){
@@ -45,10 +69,11 @@ function MainController($scope) {
         $scope.selectedItem.time=Date.now();
         $scope.mode(0);
     };
+
     $scope.saveList=function(action){
-        action == 2 ? $scope.userList.splice($scope.index,1)
+        action == 2 ? $scope.selectedLabel.list.splice($scope.index,1)
                     : $scope.selectedItem.task!= null
-                    ? $scope.userList.push($scope.selectedItem)
+                    ? $scope.selectedLabel.list.push($scope.selectedItem)
                     : alert('Nothin to save')
         $scope.newItem={};
         $scope.addMode=false;
@@ -56,9 +81,27 @@ function MainController($scope) {
     };
 
 
-    $scope.checkboxModel = {
-       value1 : true,
-     };
+    $scope.selectedLabel = $scope.mainList[0];
+    console.log($scope.selectedLabel);
 
+    $scope.setSelectLabel = function(element){
+        $scope.selectedLabel=element;
+        $scope.index = $scope.mainList.indexOf($scope.selectedLabel);
+        console.log($scope.selectedLabel);
+    };
+    $scope.newLabel = {};
+    $scope.addLabel = function(label){
+        $scope.selectedLabel = $scope.newLabel;
+        $scope.selectedLabel.list = [];
+        $scope.add = true;
+        console.log("label is "+$scope.selectedLabel);
+    };
+    $scope.saveLabel= function(){
+        $scope.selectedLabel.label != null ? 
+        $scope.mainList.push($scope.selectedLabel):
+        alert("Label not created");
+        $scope.newLabel={};
+        $scope.add = false;
+    };
 
 };

@@ -12,8 +12,11 @@ body{
     background-color: grey;
     flex: 1;
     border-radius: 6px;
+    overflow: scroll;
+    height: 550PX;
 }
 .main{
+    margin-left: 10px;
     min-width: 60%;
     padding-left: 50px;
     background-color: lightgrey;
@@ -31,4 +34,9 @@ body{
 #listview{
     padding-right: 100px;
     padding-left: 100px;
+    padding-bottom: 20px;
+}
+#labellist{
+    width: 80%;
+    border-radius: 6px;
 }

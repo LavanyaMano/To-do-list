@@ -18,8 +18,21 @@
     <div class="container">
         <div class="nav navbar-default">
             <ul>
-                <li><h4>To-do-list</h4></li>
-                <li class="btn btn-primary" ng-click="addList()">Add Item</li>
+                <li><h4>To-do-list App</h4></li>
+                <li class="btn btn-primary" ng-click="addList()">Add Item</li> 
+                <br>
+                <br>
+                <li class="btn btn-primary" ng-click="addLabel()">Add Label</li>
+                <br>
+                <input type="text" ng-show="add" ng-model="selectedLabel.label" placeholder="create label">
+                <button ng-show="add" ng-click="saveLabel()">Add</button>
+                <br>
+                <div id="labellist">
+                    <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
+                    Labels:
+                        {{element.label}}<br>
+                    </a>
+                </div>
             </ul>
         </div>
         <div class="main">
@@ -63,10 +76,11 @@
                     <button class="btn btn-primary" ng-click="saveList(0)" ng-show="addMode">Add</button>
                     <button class="btn btn-primary" ng-click="saveList(1)" ng-show="editMode">edit</button>
                 </div>
-            
-                <div class="panel list-group" id= "accordion" ng-repeat="item in userList| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
+                <h4>Your list in {{selectedLabel.label}}</h4>
+                <div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
 
                     <input type="checkbox" ng-model="item.status">
+                    <br>
                     <a class="collapsed list-group-item" href="#collapse-{{item.task}}"
                     data-toggle = "collapse"
                     data-parent = "#accordion"
