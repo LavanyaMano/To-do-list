@@ -15,10 +15,15 @@
 </head>
 <!-- content section -->
 <body ng-cloak  ng-controller="MainCtrl">
+    <header><h3><em>To-Do-List Application in Angular</em></h3></header>
     <div class="container">
         <div class="nav">
             <ul>
-                <li><h4>To-do-list App</h4></li>
+                <li class="btn">
+                    <h4>To-do-list
+                    <input class="span-heading" placeholder="({{mainList.length}})"></input></h4>
+                </li>
+                <br>
                 <li class="btn btn-default" ng-click="addList()">Add Item</li> 
                 <br>
                 <br>
@@ -30,9 +35,12 @@
                 <br>
                 <div id="labellist">
                     <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
-
                        <em> {{element.label}} </em>
-                        
+
+                                <i class="fa fa-times pull-right" ng-click="deleteLabel()" aria-hidden="true"></i>
+                      
+                        <span class="pull-right">{{element.list.length}}</span>
+
                     </a>
                 </div>
             </ul>
@@ -83,16 +91,16 @@
                     
                     <input type="checkbox" ng-model="item.status">
                     <br>
-                    <div class="{'warning': item.status}">
-                        <a class="collapsed list-group-item" href="#collapse-{{item.task}}"
+                    <div >
+                        <a ng-class="diffDays(item)" class="collapsed list-group-item" href="#collapse-{{item.task}}"
                         data-toggle = "collapse"
                         data-parent = "#accordion"
                         >
-                            {{item.task}}
+                            {{item.task}} 
                             <button class="btn btn-default" ng-click="mode(1)">
                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                             </button>
-                            <button class="btn btn-default" ng-click="saveList(2)">
+                            <button class="btn btn-default pull-right" ng-click="saveList(2)">
                                 <i class="fa fa-times" aria-hidden="true"></i>
                             </button>
                         </a>

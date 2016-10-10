@@ -9,7 +9,8 @@ function MainController($scope) {
                     detail:"second detail",
                     time:"",
                     value:"",
-                    status:false,}
+                    status:false,
+                }
         ]},
         {label:"Grocery",list:[{
                     task:"first",
@@ -82,19 +83,18 @@ function MainController($scope) {
 
 
     $scope.selectedLabel = $scope.mainList[0];
-    console.log($scope.selectedLabel);
 
     $scope.setSelectLabel = function(element){
         $scope.selectedLabel=element;
-        $scope.index = $scope.mainList.indexOf($scope.selectedLabel);
-        console.log($scope.selectedLabel);
+        $scope.indexLabel = $scope.mainList.indexOf($scope.selectedLabel);
+        console.log($scope.indexLabel);
+        console.log($scope.mainList[$scope.indexLabel])
     };
     $scope.newLabel = {};
     $scope.addLabel = function(label){
         $scope.selectedLabel = $scope.newLabel;
         $scope.selectedLabel.list = [];
         $scope.add = true;
-        console.log("label is "+$scope.selectedLabel);
     };
     $scope.saveLabel= function(){
         $scope.selectedLabel.label != null ? 
@@ -103,5 +103,14 @@ function MainController($scope) {
         $scope.newLabel={};
         $scope.add = false;
     };
-
+    $scope.deleteLabel=function(){
+        $scope.mainList.splice($scope.indexLabel, 1)
+    }
+    $scope.diffDays=function(item){
+        var classname = ((item.value - item.time) / (1000 * 60 * 60 * 24)) < 1 ? "list-group-item-danger" :
+          ((item.value - item.time) / (1000 * 60 * 60 * 24)) <= 2 ? "list-group-item-warning":"";
+        console.log(classname);
+        return classname;
+    }
+    
 };
