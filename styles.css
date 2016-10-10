@@ -1,6 +1,8 @@
 body{
     padding: 70px;
+    background-image: url("https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwiNw6zGw9DPAhUBYCYKHWTIDa0QjRwIBw&url=http%3A%2F%2Fkingofwallpapers.com%2Fblack-background-image.html&psig=AFQjCNH6fYUKXKyLdA38bV47reLn-H0Rhw&ust=1476198880300031");
     background-color: rgba(4, 9, 10, 0.77);
+    /*background: black;*/
     font-family: "Times New Roman", Georgia, Serif;
 }
 header{
@@ -22,7 +24,7 @@ header{
     box-shadow: 10px 10px 29px 3px rgba(163,160,163,1);
 }
 .main{
-    margin-left: 10px;
+    margin-left: 20px;
     min-width: 60%;
     padding-left: 50px;
     background-color: lightgrey;

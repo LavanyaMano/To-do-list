@@ -105,8 +105,9 @@ function MainController($scope) {
         $scope.mainList.splice($scope.indexLabel, 1)
     }
     $scope.diffDays=function(item){
-        var classname = ((item.value - item.time) / (1000 * 60 * 60 * 24)) < 1 ? "list-group-item-danger" :
+        var classname = ((item.value - Date.now()) / (1000 * 60 * 60 * 24)) < 1 ? "list-group-item-danger" :
           ((item.value - item.time) / (1000 * 60 * 60 * 24)) <= 2 ? "list-group-item-warning":"";
+        console.log(((item.value - Date.now()) / (1000 * 60 * 60 * 24)));
         return classname;
     }
     
