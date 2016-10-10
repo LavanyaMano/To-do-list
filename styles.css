@@ -1,6 +1,7 @@
 body{
     padding: 70px;
-    background-color: black;
+    background-color: rgba(4, 9, 10, 0.77);
+    font-style: oblique;
 }
 
 .container {
@@ -38,5 +39,10 @@ body{
 }
 #labellist{
     width: 80%;
+    padding-top: 10px;
+    border-radius: 6px;
+    font-style: italic;
+}
+input{
     border-radius: 6px;
 }

@@ -16,21 +16,22 @@
 <!-- content section -->
 <body ng-cloak  ng-controller="MainCtrl">
     <div class="container">
-        <div class="nav navbar-default">
+        <div class="nav ">
             <ul>
                 <li><h4>To-do-list App</h4></li>
                 <li class="btn btn-primary" ng-click="addList()">Add Item</li> 
                 <br>
                 <br>
                 <li class="btn btn-primary" ng-click="addLabel()">Add Label</li>
-                <br>
+                <br><br>
                 <input type="text" ng-show="add" ng-model="selectedLabel.label" placeholder="create label">
                 <button ng-show="add" ng-click="saveLabel()">Add</button>
                 <br>
                 <div id="labellist">
                     <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
-                    Labels:
-                        {{element.label}}<br>
+
+                       <em> {{element.label}} </em>
+                        
                     </a>
                 </div>
             </ul>
@@ -78,26 +79,29 @@
                 </div>
                 <h4>Your list in {{selectedLabel.label}}</h4>
                 <div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
-
+                    
                     <input type="checkbox" ng-model="item.status">
                     <br>
-                    <a class="collapsed list-group-item" href="#collapse-{{item.task}}"
-                    data-toggle = "collapse"
-                    data-parent = "#accordion"
-                    >
-                        {{item.task}}
-                        <button class="btn btn-primary" ng-click="mode(1)">Edit Item</button>
-                        <button class="btn btn-primary" ng-click="saveList(2)">Delete</button>
-                    </a>
+                    <div class="{'warning': item.status}">
+                        <a class="collapsed list-group-item" href="#collapse-{{item.task}}"
+                        data-toggle = "collapse"
+                        data-parent = "#accordion"
+                        >
+                            {{item.task}}
+                            <button class="btn btn-primary" ng-click="mode(1)">Edit Item</button>
+                            <button class="btn btn-primary" ng-click="saveList(2)">Delete</button>
+                        </a>
+                    </div>
+                    
                         <div id="collapse-{{item.task}}" class="panel-collapse collapse">
                             <div class="panel-body">
-                                <a href="#">{{ item.task}}</a>
+                                <a href="#">Task: {{ item.task}}</a>
                                 <br>
-                                <a href="#">{{ item.detail}}</a>
+                                <a href="#">Detail: {{ item.detail}}</a>
                                 <br>
-                                <a href="#" type="date" ng-model="item.time">{{ item.time|date }}</a>
+                                <a href="#" type="date" ng-model="item.time">Created on: {{ item.time|date }}</a>
                                 <br>
-                                <a href="#" type="date" ng-model="item.value">{{ item.value|date}}</a>
+                                <a href="#" type="date" ng-model="item.value">Due on: {{ item.value|date}}</a>
                             </div>
                         </div>
                 </div>
