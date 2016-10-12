@@ -29,22 +29,7 @@ function MainController($scope) {
                             },]
         }];
 
-    $scope.userList =[{
-        task:"first",
-        detail:"first detail",
-        time:"",
-        value:"",
-        status:true,
-                },
-                {
-                    task:"second",
-                    detail:"second detail",
-                    time:"",
-                    value:"",
-                    status:false,
-                }];
     $scope.newItem ={};
-    $scope.selectedItem=$scope.userList[0];
     $scope.rowLimit = 4;
     $scope.sortList = "task"; 
     $scope.setSelectItem = function(item){
@@ -81,9 +66,7 @@ function MainController($scope) {
         $scope.editMode=false;
     };
 
-
     $scope.selectedLabel = $scope.mainList[0];
-
     $scope.setSelectLabel = function(element){
         $scope.selectedLabel=element;
         $scope.indexLabel = $scope.mainList.indexOf($scope.selectedLabel);
@@ -110,5 +93,21 @@ function MainController($scope) {
         console.log(((item.value - Date.now()) / (1000 * 60 * 60 * 24)));
         return classname;
     }
-    
+    $scope.page = 0;
+    $scope.pageNo = function(action){
+        action == 0 ? $scope.page++ : action == 1 ? $scope.page-- : "";
+        console.log($scope.page)
+        return $scope.page
+    }
+
+    $scope.itemsPaginated = function () {
+        $scope.currentPageIndex = $scope.page * $scope.rowLimit;
+        console.log('currentPageIndex', $scope.currentPageIndex)
+        console.log('page', $scope.page)
+        console.log('rowLimit', $scope.rowLimit)
+
+        return $scope.selectedLabel.list.slice(
+            $scope.currentPageIndex, 
+            $scope.currentPageIndex + $scope.rowLimit);
+    }
 };

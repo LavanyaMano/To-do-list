@@ -83,8 +83,15 @@
                     <button class="btn btn-default" ng-click="saveList(0)" ng-show="addMode">Add</button>
                     <button class="btn btn-default" ng-click="saveList(1)" ng-show="editMode">edit</button>
                 </div>
-                <h4>Your list in Label: {{selectedLabel.label}}</h4>
-                <div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
+                <h4>Your list in Label: {{selectedLabel.label}}
+                    <button class="btn btn-default" ng-click="pageNo(1)">
+                        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-default" ng-click="pageNo(0)">
+                        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                    </button>
+                </h4> 
+                <div class="panel list-group" id= "accordion" ng-repeat="item in itemsPaginated()|limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
                     
                     <input type="checkbox" ng-model="item.status">
                     <br>
