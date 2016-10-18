@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="side">
+        <ul>
+            <li>
+                <h4>
+                To-do-list
+                <input class="span-heading" placeholder="{{mainList.length}}"></input>
+                </h4>
+            </li>
+            <li class="btn btn-default" ng-click="addLabel()">Add Label</li>
+                <br><br>
+            <form ng-submit="saveLabel()">
+                <input type="text" ng-show="add" ng-model="selectedLabel.label" placeholder="create label">
+            </form>
+                <br>
+            <div id="labellist">
+                <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)">
+                    <em> {{element.label}} </em>
+                    <i class="fa fa-times pull-right" ng-click="deleteLabel()" aria-hidden="true"></i>
+                    <span class="pull-right">{{element.list.length}}</span>
+                </a>
+            </div>
+        </ul>
+    </div>
+    <div class="main">
+        <div id="menu">
+            Search : <input type="text" placeholder="Search task" ng-model="searchList"/>
+            Display rows:<input type="number" min="0" max ="{{selectedLabel.list.length}}" ng-model="rowLimit"/> 
+            Order By : <select ng-model="sortList">
+                            <option value="task">
+                                By Task (ascending)
+                            </option>
+                            <option value="-task">
+                                By Task (decending)
+                            </option>
+                            <option value="time">
+                                By Date added (ascending)
+                            </option>
+                            <option value="-time">
+                            By Date added (decending)   
+                            </option>
+                            <option value="value">
+                                By Target date(ascending)
+                            </option>
+                            <option value="-value">
+                                By Target date(decending)
+                            </option>
+                            <option value="-status">
+                                By Completed
+                            </option>
+                            <option value="status">
+                                By Pending
+                            </option>
+                        </select>
+        </div>
+        <div id="listview">
+            <button class="btn btn-default" ng-click="addList()">Add Item</button> 
+            <div class= "editor" ng-show="addMode || editMode">
+                <input type="text" ng-model="selectedItem.task" placeholder="task">
+                <input type="text" ng-model="selectedItem.detail" placeholder="detail">
+                <label>Due on</label>
+                <input type="date" ng-model="selectedItem.value"
+                            placeholder="yyyy-MM-dd" min="2015-01-01" max="2073-12-31" required />
+                <button class="btn btn-default" ng-click="saveList(0)" ng-show="addMode">Add</button>
+                <button class="btn btn-default" ng-click="saveList(1)" ng-show="editMode">edit</button>
+            </div>
+                <h4>Your list in Label: {{selectedLabel.label}}
+                    <button class="btn btn-default" ng-click="pageNo(1)">
+                        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-default" ng-click="pageNo(0)">
+                        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+                    </button>
+                </h4> 
+            <div class="panel list-group" id= "accordion" ng-repeat="item in itemsPaginated()|limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
+                <input type="checkbox" ng-model="item.status">
+                <br>
+                <div >
+                    <a ng-class="diffDays(item)" class="collapsed list-group-item" href="#collapse-{{item.task}}"
+                    data-toggle = "collapse"
+                    data-parent = "#accordion"
+                    >
+                        {{item.task}} 
+                        <button class="btn btn-default pull-right clearfix" ng-click="mode(1)">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                        <button class="btn btn-default pull-right clearfix" ng-click="saveList(2)">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </button>
+                    </a>
+                </div>
+                <div id="collapse-{{item.task}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <a href="#">Task: {{ item.task}}</a>
+                        <br>
+                        <a href="#">Detail: {{ item.detail}}</a>
+                        <br>
+                        <a href="#" type="date" ng-model="item.time">Created on: {{ item.time|date }}</a>
+                        <br>
+                        <a href="#" type="date" ng-model="item.value">Due on: {{ item.value|date}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,9 +28,10 @@ function MainController($scope) {
                     status:true,
                             },]
         }];
-
+    $scope.pageView = "detail.html";
     $scope.newItem ={};
-    $scope.rowLimit = 4;
+    $scope.selectedLabel = $scope.mainList[0];
+    $scope.rowLimit = $scope.selectedLabel.list.length;
     $scope.sortList = "task"; 
     $scope.setSelectItem = function(item){
         $scope.selectedItem=item;
@@ -60,8 +61,9 @@ function MainController($scope) {
         action == 2 ? $scope.selectedLabel.list.splice($scope.index,1)
                     : $scope.selectedItem.task!= null
                     ? $scope.selectedLabel.list.push($scope.selectedItem)
-                    : alert('Nothin to save')
+                    : alert('Nothing to save')
         $scope.newItem={};
+        $scope.rowLimit = $scope.selectedLabel.list.length;
         $scope.addMode=false;
         $scope.editMode=false;
     };
@@ -81,6 +83,7 @@ function MainController($scope) {
         $scope.selectedLabel.label != null ? 
         $scope.mainList.push($scope.selectedLabel):
         alert("Label not created");
+
         $scope.newLabel={};
         $scope.add = false;
     };
@@ -90,14 +93,36 @@ function MainController($scope) {
     $scope.diffDays=function(item){
         var classname = ((item.value - Date.now()) / (1000 * 60 * 60 * 24)) < 1 ? "list-group-item-danger" :
           ((item.value - item.time) / (1000 * 60 * 60 * 24)) <= 2 ? "list-group-item-warning":"";
-        console.log(((item.value - Date.now()) / (1000 * 60 * 60 * 24)));
         return classname;
     }
     $scope.page = 0;
     $scope.pageNo = function(action){
-        action == 0 ? $scope.page++ : action == 1 ? $scope.page-- : "";
+        var maxPage = ($scope.selectedLabel.list.length/ $scope.rowLimit);
+        console.log('list length',$scope.selectedLabel.list.length)
+        console.log('scope page', $scope.page);
+        console.log('max page', maxPage);
+        
+        switch (action){
+        case 0:
+            if(($scope.page+1)<maxPage){
+                $scope.page++
+            }
+            else{
+                alert("Stop ...")
+                // $scope.page--;
+            }
+            break;
+        case 1:
+            if(($scope.page-1)>=0){
+                $scope.page--
+            }
+            else{
+                alert("Stop ...")
+                // $scope.page++;
+            }
+            break;
+        }
         console.log($scope.page)
-        return $scope.page
     }
 
     $scope.itemsPaginated = function () {
@@ -109,5 +134,6 @@ function MainController($scope) {
         return $scope.selectedLabel.list.slice(
             $scope.currentPageIndex, 
             $scope.currentPageIndex + $scope.rowLimit);
-    }
+    };
+
 };

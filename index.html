@@ -5,129 +5,45 @@
     <title>
         To-doList Angular
     </title>
+    <!-- bootswatch -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cosmo/bootstrap.min.css">
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+ -->
     <!-- Optional theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/a04d9e4c1c.js"></script>
     <link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
+
 <!-- content section -->
 <body ng-cloak  ng-controller="MainCtrl">
-    <header><h3><em>To-Do-List Application in Angular</em></h3></header>
-    <div class="container">
-        <div class="nav">
-            <ul>
-                <li class="btn">
-                    <h4>To-do-list
-                    <input class="span-heading" placeholder="({{mainList.length}})"></input></h4>
-                </li>
-                <br>
-                <li class="btn btn-default" ng-click="addList()">Add Item</li> 
-                <br>
-                <br>
-                <li class="btn btn-default" ng-click="addLabel()">Add Label</li>
-                <br><br>
-                <form ng-submit="saveLabel()">
-                <input type="text" ng-show="add" ng-model="selectedLabel.label" placeholder="create label">
-                </form>
-                <br>
-                <div id="labellist">
-                    <a class = "list-group-item"  href="#" ng-repeat="element in mainList" ng-click="setSelectLabel(element)" >
-                        <em> {{element.label}} </em>
-                        <i class="fa fa-times pull-right" ng-click="deleteLabel()" aria-hidden="true"></i>
-                        <span class="pull-right">{{element.list.length}}</span>
-                    </a>
+    <header>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <span class="navbar-brand">
+                        To-Do-List Application in Angular
+                    </span>
                 </div>
-            </ul>
-        </div>
-        <div class="main">
-            <div id="menu">
-                    Search : <input type="text" placeholder="Search task" ng-model="searchList"/>
-                    Display rows:<input type="number" min="0" max ="{{selectedLabel.list.length}}" ng-model="rowLimit"/> 
-                    Order By : <select ng-model="sortList">
-                                    <option value="task">
-                                        By Task (ascending)
-                                    </option>
-                                    <option value="-task">
-                                        By Task (decending)
-                                    </option>
-                                    <option value="time">
-                                        By Date added (ascending)
-                                    </option>
-                                    <option value="-time">
-                                    By Date added (decending)   
-                                    </option>
-                                    <option value="value">
-                                        By Target date(ascending)
-                                    </option>
-                                    <option value="-value">
-                                        By Target date(decending)
-                                    </option>
-                                    <option value="-status">
-                                        By Completed
-                                    </option>
-                                    <option value="status">
-                                        By Pending
-                                    </option>
-                                </select>
+                <div class='nav navbar-nav pull-right dropdown'>
+                    <select ng-model="pageView">
+                        <option value="detail.html">
+                            Detail view
+                        </option>
+                        <option value="view.html">
+                            Table view
+                        </option>
+                    </select>
+                </div> 
             </div>
-            <div id="listview">
-                <div class= "editor" ng-show="addMode || editMode">
-                    <input type="text" ng-model="selectedItem.task" placeholder="task">
-                    <input type="text" ng-model="selectedItem.detail" placeholder="detail">
-                    <label>Due on</label>
-                    <input type="date" ng-model="selectedItem.value"
-                            placeholder="yyyy-MM-dd" min="2015-01-01" max="2023-12-31" required />
-                    <button class="btn btn-default" ng-click="saveList(0)" ng-show="addMode">Add</button>
-                    <button class="btn btn-default" ng-click="saveList(1)" ng-show="editMode">edit</button>
-                </div>
-                <h4>Your list in Label: {{selectedLabel.label}}
-                    <button class="btn btn-default" ng-click="pageNo(1)">
-                        <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
-                    </button>
-                    <button class="btn btn-default" ng-click="pageNo(0)">
-                        <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
-                    </button>
-                </h4> 
-                <div class="panel list-group" id= "accordion" ng-repeat="item in itemsPaginated()|limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
-                    
-                    <input type="checkbox" ng-model="item.status">
-                    <br>
-                    <div >
-                        <a ng-class="diffDays(item)" class="collapsed list-group-item" href="#collapse-{{item.task}}"
-                        data-toggle = "collapse"
-                        data-parent = "#accordion"
-                        >
-                            {{item.task}} 
-                            <button class="btn btn-default pull-next" ng-click="mode(1)">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-default pull-right" ng-click="saveList(2)">
-                                <i class="fa fa-times" aria-hidden="true"></i>
-                            </button>
-                        </a>
-                    </div>
-                    
-                        <div id="collapse-{{item.task}}" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <a href="#">Task: {{ item.task}}</a>
-                                <br>
-                                <a href="#">Detail: {{ item.detail}}</a>
-                                <br>
-                                <a href="#" type="date" ng-model="item.time">Created on: {{ item.time|date }}</a>
-                                <br>
-                                <a href="#" type="date" ng-model="item.value">Due on: {{ item.value|date}}</a>
-                            </div>
-                        </div>
-                        <div ng-include="view.html">
-                            
-                        </div>
-                </div>
-            </div>
-        </div>
+        </nav>
+    </header>
+
+    <div ng-include src="pageView">
+    <!-- view page renders here as table view/ detail view -->
     </div>
+
 <!-- footer section -->
 
 

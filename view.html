@@ -2,26 +2,32 @@
     This is trial
 </p>
 
-
-<div class="panel list-group" id= "accordion" ng-repeat="item in selectedLabel.list| limitTo:rowLimit| filter: searchList| orderBy:sortList " ng-click="setSelectItem(item)">
-    <table>
-        <thead>
-            <tr>
-                <td>TASK</td>
-                <td>DETAIL</td>
-                <td>CREATED ON</td>
-                <td>DUE ON</td>
-                <td>STATUS</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{{item.task}}</td>
-                <td>{{item.detail}}</td>
-                <td>{{item.time}}</td>
-                <td>{{item.value}}</td>
-                <td>{{item.status}}</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="row">
+    <div class="col-md-4 my-table-column" ng-repeat="label in mainList" ng-click="setSelectItem(item)">
+        <nav class="navbar navbar-inverse navbar-static-top my-table">
+            <div class="navbar-header">
+                <span class="navbar-brand">
+                    {{label.label}}
+                </span>
+            </div>
+        </nav>
+        <table class="table">
+            <thead class="thead-default">
+                <tr>
+                  <th>#</th>
+                  <th>TASK</th>
+                  <th>DUE ON</th>
+                  <th>STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in label.list" ng-click="setSelectItem(item)">
+                    <th scope="row">{{$index + 1}}</th>
+                    <td>{{item.task}}</td>
+                    <td>{{item.value}}</td>
+                    <td>{{item.status}}</td>
+                </tr>
+            </tbody>
+        <table>
+    </div>
 </div>
